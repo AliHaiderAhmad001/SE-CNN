@@ -94,8 +94,8 @@ if __name__=="__main__":
   froberta = flair.embeddings.TransformerWordEmbeddings('AliAhmad001/absa-restaurant-froberta-base')
   doc_embedding = 'AliAhmad001/absa-restaurant-froberta-base'
   pretrained_models = [froberta]
-  extraxt_features(train_file = TRAIN_FILE_se16,
-       test_file = TEST_FILE_se16, 
+  extraxt_features(train_file = TRAIN_FILE_SE14,
+       test_file = TEST_FILE_SE14, 
        models_list = pretrained_models,
        doc_embedding = doc_embedding,
        taging_scheme = TAG2IDX, 
