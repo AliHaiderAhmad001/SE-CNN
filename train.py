@@ -132,23 +132,23 @@ def build_and_train(
 ):  
     n_train_batch = len([name for name in os.listdir(project_folder + '/temp/train')])
     n_val_batch = int(val_rate * n_train_batch) # 9
-    n_test_batch = len([name for name in os.listdir(project_folder + '/temp/test')])
-    batch_train_list = [i for i in range(n_train_batch - 0)]
-    #batch_val_list = [i for i in range(len(batch_train_list), n_train_batch)]
-    batch_test_list = [i for i in range(n_test_batch)]
+    #n_test_batch = len([name for name in os.listdir(project_folder + '/temp/test')])
+    batch_train_list = [i for i in range(n_train_batch - n_val_batch)]
+    batch_val_list = [i for i in range(len(batch_train_list), n_train_batch)]
+    #batch_test_list = [i for i in range(n_test_batch)]
     train_gen = DataGenerator(embedding_path, 'train', batch_train_list, shuffle = shuffle,
                               n_tags = n_tags, one_hot_labels = one_hot_labels
                               )
-    #val_gen = DataGenerator(embedding_path, 'train', batch_val_list, shuffle = shuffle,
-    #                          n_tags = n_tags, one_hot_labels = one_hot_labels
-    #                          )
-    test_gen = DataGenerator(embedding_path, 'test', batch_test_list, shuffle = shuffle,
+    val_gen = DataGenerator(embedding_path, 'train', batch_val_list, shuffle = shuffle,
                               n_tags = n_tags, one_hot_labels = one_hot_labels
                               )
+    #test_gen = DataGenerator(embedding_path, 'test', batch_test_list, shuffle = shuffle,
+    #                          n_tags = n_tags, one_hot_labels = one_hot_labels
+    #                          )
 
     callbacks = [
       Monitor(
-        dataset = test_gen,
+        dataset = val_gen,
         save_best = save_best, 
         save_path = save_path, 
         patience = patience
