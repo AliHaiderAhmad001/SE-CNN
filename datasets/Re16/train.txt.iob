@@ -24337,7 +24337,7 @@ modern	B-A
 Japanese	I-A
 brasserie	I-A
 that	O
-don’t	O
+dont	O
 serve	O
 sushi	O
 ,	O
@@ -24385,7 +24385,7 @@ make	O
 you	O
 feel	O
 like	O
-you’re	O
+youre	O
 no	O
 longer	O
 in	O
@@ -24393,7 +24393,7 @@ the	O
 city	O
 
 If	O
-you’re	O
+youre	O
 planning	O
 to	O
 come	O
@@ -24411,7 +24411,7 @@ you	O
 really	O
 like	O
 since	O
-you’ll	O
+youll	O
 be	O
 ushered	O
 to	O
@@ -24447,7 +24447,7 @@ in	O
 the	O
 sky	O
 
-It’s	O
+Its	O
 just	O
 you	O
 and	O
@@ -24457,8 +24457,8 @@ and	O
 an	O
 occasional	O
 cute	O
-‘excuse	O
-me’	O
+excuse	O
+me	O
 before	O
 the	O
 waiter	B-A
@@ -24579,7 +24579,7 @@ and	O
 rice	O
 
 The	O
-sake’s	B-A
+sakes	B-A
 complimented	O
 the	O
 courses	O
@@ -24653,7 +24653,7 @@ point	O
 but	O
 I	O
 just	O
-can’t	O
+cant	O
 say	O
 enough	O
 good	O
@@ -24663,7 +24663,7 @@ this	O
 brasserie	B-A
 
 I	O
-don’t	O
+dont	O
 usually	O
 visit	O
 the	O
@@ -24678,7 +24678,7 @@ more	O
 twice	O
 ,	O
 but	O
-I’ll	O
+Ill	O
 come	O
 to	O
 Zenkichi	B-A
@@ -27126,7 +27126,7 @@ service	B-A
 and	O
 management	B-A
 
-Don’t	O
+Dont	O
 go	O
 to	O
 this	O
@@ -27223,7 +27223,7 @@ about	O
 similar	O
 issues	O
 
-Can’t	O
+Cant	O
 believe	O
 how	O
 an	O

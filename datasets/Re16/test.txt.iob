@@ -4931,7 +4931,7 @@ It	O
 was	O
 clear	O
 he	O
-didn’t	O
+didnt	O
 really	O
 care	O
 
@@ -7647,18 +7647,18 @@ at	O
 Mioposto	B-A
 Café	I-A
 
-We’re	O
-can’t	O
+Were	O
+cant	O
 say	O
 enough	O
 about	O
 their	O
 delicious	O
 gourmet	O
-pizza’s	B-A
+pizzas	B-A
 
 You	O
-won’t	O
+wont	O
 be	O
 disappointed	O
 by	O
@@ -7666,7 +7666,7 @@ their	O
 menu	B-A
 
 The	O
-pizza’s	B-A
+pizzas	B-A
 are	O
 thin	O
 crust	O
@@ -7692,7 +7692,7 @@ eat	O
 there	O
 
 The	O
-pizza’s	B-A
+pizzas	B-A
 are	O
 light	O
 and	O
@@ -7703,7 +7703,7 @@ the	O
 Pizza	B-A
 Ensalata	I-A
 
-It’s	O
+Its	O
 a	O
 salad	O
 on	O
@@ -7716,7 +7716,7 @@ Absolutely	O
 delicious	O
 
 The	O
-pizza’s	B-A
+pizzas	B-A
 are	O
 not	O
 huge	O
@@ -7724,12 +7724,12 @@ and	O
 the	O
 crust	B-A
 is	O
-thin…keep	O
+thinkeep	O
 that	O
 in	O
 mind	O
 when	O
-you’re	O
+youre	O
 ordering	O
 
 Worth	O

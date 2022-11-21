@@ -34,11 +34,11 @@ class DataStreamer():
             tags = self.file.readline().strip()
             if self.lower_case:
               sent = sent.lower()
-            self.the_buffer.append([sent, tags]) # list<str, str>, e.g. ['bla bla','bla bla']
+            self.the_buffer.append([sent, tags])
             ct += 1
         
         if self.shuffle:
-          self.rnd.shuffle(self.the_buffer)  # in-place
+          self.rnd.shuffle(self.the_buffer) 
 
     def __iter__(self):
        return self
@@ -66,6 +66,7 @@ class DataStreamer():
           else:
             self.flag = True
         return x,y
+
 
 
 

@@ -12,8 +12,7 @@ from config import *
 class Embeddings():
   'Features extract'
   def __init__(self,
-               models_list,
-               doc_embedding,
+               model_name,
                batch_size,
                max_len,
                token_features,
@@ -21,8 +20,8 @@ class Embeddings():
                ):
     super().__init__()
     self.elmo_model = hub.load('https://tfhub.dev/google/elmo/3')
-    self.stack = flair.embeddings.StackedEmbeddings(models_list)
-    self.doc_embedding = flair.embeddings.TransformerDocumentEmbeddings(doc_embedding)
+    self.tr_model = flair.embeddings.TransformerWordEmbeddings(model_name)
+    self.doc_embedding = flair.embeddings.TransformerDocumentEmbeddings(model_name)
     self.use_elmo = use_elmo
     self.batch = numpy.zeros((batch_size, max_len, token_features))
 
@@ -34,22 +33,27 @@ class Embeddings():
     s = flair.data.Sentence(sentence)
     sd = flair.data.Sentence(sentence)
     self.doc_embedding.embed(sd)
-    self.stack.embed(s)
-    return  numpy.array([ (token.embedding.cpu().numpy() + sd.get_embedding().cpu().numpy()) for token in s])
+    self.tr_model.embed(s)
+    return numpy.array([token.embedding.cpu().numpy() for token in s]) +\
+           sd.get_embedding().cpu().numpy()
 
   def forward(self, sentences):
     self.batch *= 0.0
     for i, sent in enumerate(sentences):
       embs = self.tr_encoder(sent)
       if self.use_elmo:
-        embs = numpy.concatenate((self.elmo_encoder([sent]), embs), axis = -1)
+        try:
+          embs = numpy.concatenate((self.elmo_encoder([sent]), embs), axis = -1)
+        except:
+          print(sent)
+          embs = numpy.concatenate((self.elmo_encoder([sent]), embs), axis = -1)
       self.batch[i,:embs.shape[0]] = embs  
     return self.batch[:len(sentences)]
 
 class FeatureExtractor(Embeddings):
   'Extract and store features for later feeding the model'
-  def __init__(self, models_list, doc_embedding, batch_size, max_len, token_features, taging_scheme, use_elmo):
-    super().__init__(models_list, doc_embedding, batch_size, max_len, token_features, use_elmo)
+  def __init__(self, model_name, batch_size, max_len, token_features, taging_scheme, use_elmo):
+    super().__init__(model_name, batch_size, max_len, token_features, use_elmo)
     self.max_len = max_len   
     self.taging_scheme = taging_scheme
 
@@ -69,7 +73,7 @@ class FeatureExtractor(Embeddings):
       ldr.file.close()
 
 
-def extraxt_features(train_file, test_file, models_list, doc_embedding, taging_scheme, embedding_path, buffer_size = 512, batch_size = 32, lower_case = True, max_len = 100, token_features = 1792, use_elmo = True):
+def extraxt_features(train_file, test_file, model_name, taging_scheme, embedding_path, buffer_size = 512, batch_size = 32, lower_case = True, max_len = 100, token_features = 1792, use_elmo = True):
   train_ldr = DataStreamer(train_file,
                             buffer_size = buffer_size,
                             batch_size = batch_size,
@@ -78,8 +82,7 @@ def extraxt_features(train_file, test_file, models_list, doc_embedding, taging_s
                             buffer_size = buffer_size,
                             batch_size = batch_size,
                             lower_case = lower_case)
-  extractor = FeatureExtractor(models_list = pretrained_models,
-                               doc_embedding = doc_embedding,
+  extractor = FeatureExtractor(model_name = model_name,
                                 batch_size = batch_size,
                                 max_len = max_len,
                                 token_features = token_features,
@@ -91,13 +94,10 @@ def extraxt_features(train_file, test_file, models_list, doc_embedding, taging_s
 
 
 if __name__=="__main__":
-  froberta = flair.embeddings.TransformerWordEmbeddings('AliAhmad001/absa-restaurant-froberta-base')
-  doc_embedding = 'AliAhmad001/absa-restaurant-froberta-base'
-  pretrained_models = [froberta]
-  extraxt_features(train_file = TRAIN_FILE_SE14,
-       test_file = TEST_FILE_SE14, 
-       models_list = pretrained_models,
-       doc_embedding = doc_embedding,
+  MODEL_NAME = 'AliAhmad001/absa-restaurant-froberta-base'
+  extraxt_features(train_file = TRAIN_FILE_SE16,
+       test_file = TEST_FILE_SE16,
+       model_name = MODEL_NAME,
        taging_scheme = TAG2IDX, 
        embedding_path = EMBEDING_PATH, 
        buffer_size = BUFSIZE, 
